@@ -1,9 +1,55 @@
-function ManajemenBuku({bookList}){
-    console.log(bookList);
+import { useState } from "react";
+
+function ManajemenBuku({ bookList, store }) {
+    const [inputBook, setInputBook] = useState();
+
+    function handleJudul(e) {
+        setInputBook({ ...inputBook, judul: e.target.value });
+    }
+
+    function handlePengarang(e) {
+        setInputBook({ ...inputBook, pengarang: e.target.value });
+    }
+
+    function handleHarga(e) {
+        setInputBook({...inputBook, harga: e.target.value});
+    }
+
+    function handleStok(e) {
+        setInputBook({...inputBook, stok: e.target.value});
+    }
+
+    function submitAdd(e) {
+        e.preventDefault();
+        store(inputBook);
+    }
+
+
+
     return (
         <div className="container mt-3">
             <h1 className="text-center">Manajemen Buku</h1>
-            <div id="formTambah"></div>
+            <div id="formTambah">
+                <h5 className="mt-5">Form Tambah Buku</h5>
+                <hr />
+                <form onSubmit={submitAdd   } className="row align-items-center gx-3 gy-2">
+                    <div className="col-sm-3">
+                        <input type="text" name="judul" className="form-control" placeholder="Judul" onChange={handleJudul} />
+                    </div>
+                    <div className="col-sm-3">
+                        <input type="text" name="pengarang" className="form-control" placeholder="Pengarang" onChange={handlePengarang} />
+                    </div>
+                    <div className="col-sm-2">
+                        <input type="text" name="harga" className="form-control" placeholder="Harga" onChange={handleHarga}/>
+                    </div>
+                    <div className="col-sm-2">
+                        <input type="number" name="stok" className="form-control" placeholder="Stok Buku" onChange={handleStok}/>
+                    </div>
+                    <div className="col-sm-2">
+                        <input type="submit" className="btn btn-primary" value="Submit" />
+                    </div>
+                </form>
+            </div>
             <div id="formUbah"></div>
             <div id="daftarBuku">
                 <h2 className="mt-5">Daftar Buku</h2>
@@ -23,7 +69,7 @@ function ManajemenBuku({bookList}){
                     <tbody>
                         {bookList.map((book, index) => (
                             <tr key={index}>
-                                <td className="text-center align-middle">{index+1}</td>
+                                <td className="text-center align-middle">{index + 1}</td>
                                 <td className="align-middle">{book.judul}</td>
                                 <td className="align-middle">{book.pengarang}</td>
                                 <td className="text-center align-middle">{book.harga}</td>

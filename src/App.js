@@ -22,6 +22,11 @@ function App() {
     }
   ]);
 
+  function storeData(inputBook) {
+    console.log(inputBook);
+    alert("Data berhasil ditambahkan");
+  }
+
   return (
     <div>
       <BrowserRouter>
@@ -31,7 +36,7 @@ function App() {
             <Beranda />
           </Route>
           <Route path="/">
-            <ManajemenBuku bookList={books} />
+            <ManajemenBuku bookList={books} store={storeData}/>
           </Route>
         </Switch>
       </BrowserRouter>
