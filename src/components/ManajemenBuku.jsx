@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function ManajemenBuku({ bookList, store }) {
     const [inputBook, setInputBook] = useState();
+    const [form, setForm] = useState();
 
     function handleJudul(e) {
         setInputBook({ ...inputBook, judul: e.target.value });
@@ -24,15 +25,18 @@ function ManajemenBuku({ bookList, store }) {
         store(inputBook);
     }
 
-
+    function showCreate() {
+        setForm("create");
+    }
 
     return (
         <div className="container mt-3">
             <h1 className="text-center">Manajemen Buku</h1>
-            <div id="formTambah">
+            {form === "create" && (
+                <div id="formTambah">
                 <h5 className="mt-5">Form Tambah Buku</h5>
                 <hr />
-                <form onSubmit={submitAdd   } className="row align-items-center gx-3 gy-2">
+                <form onSubmit={submitAdd } className="row align-items-center gx-3 gy-2">
                     <div className="col-sm-3">
                         <input type="text" name="judul" className="form-control" placeholder="Judul" onChange={handleJudul} />
                     </div>
@@ -50,11 +54,13 @@ function ManajemenBuku({ bookList, store }) {
                     </div>
                 </form>
             </div>
+            )}
+            
             <div id="formUbah"></div>
             <div id="daftarBuku">
                 <h2 className="mt-5">Daftar Buku</h2>
                 <hr />
-                <button className="btn btn-primary mb-4">Tambah Buku</button>
+                <button className="btn btn-primary mb-4" onClick={showCreate}>Tambah Buku</button>
                 <table className="table table-bordered">
                     <thead>
                         <tr className="text-center">
