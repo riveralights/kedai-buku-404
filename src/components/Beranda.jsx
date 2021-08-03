@@ -17,7 +17,7 @@ function Beranda({bookList}){
                     </thead>
                     <tbody>
                         { bookList.map((book, index) => (
-                            <tr key={index}>
+                            <tr key={book._id}>
                                 <td className="text-center align-middle">{index + 1}</td>
                                 <td className="align-middle">{book.judul}</td>
                                 <td className="align-middle">{book.pengarang}</td>
