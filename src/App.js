@@ -27,16 +27,26 @@ function App() {
     alert("Data berhasil ditambahkan");
   }
 
+  function updateData(inputBook) {
+    console.log(inputBook);
+    alert(`Data ${inputBook.judul} berhasil diubah`);
+  }
+
+  function deleteData(book) {
+    console.log(book);
+    alert('Data berhasil di hapus');
+  }
+
   return (
     <div>
       <BrowserRouter>
         <Navbar />
         <Switch>
           <Route exact path="/">
-            <Beranda />
+            <Beranda bookList={books} />
           </Route>
           <Route path="/">
-            <ManajemenBuku bookList={books} store={storeData}/>
+            <ManajemenBuku bookList={books} store={storeData} update={updateData} remove={deleteData} />
           </Route>
         </Switch>
       </BrowserRouter>

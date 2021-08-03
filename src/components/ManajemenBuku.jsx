@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ManajemenBuku({ bookList, store }) {
+function ManajemenBuku({ bookList, store, update, remove }) {
     const [inputBook, setInputBook] = useState();
     const [form, setForm] = useState();
 
@@ -25,6 +25,12 @@ function ManajemenBuku({ bookList, store }) {
         store(inputBook);
     }
 
+    function submitChange(e){
+        e.preventDefault();
+        update(inputBook);
+        setForm("")
+    }
+
     function showCreate() {
         setForm("create");
     }
@@ -32,6 +38,10 @@ function ManajemenBuku({ bookList, store }) {
     function showEdit(book) {
         setInputBook(book);
         setForm("edit");
+    }
+
+    function deleteBook(book) {
+        remove(book);
     }
 
     return (
@@ -65,7 +75,7 @@ function ManajemenBuku({ bookList, store }) {
                 <div id="formUbah">
                 <h5 className="mt-5">Ubah Buku</h5>
                 <hr />
-                <form className="row align-items-center gx-3 gy-2">
+                <form className="row align-items-center gx-3 gy-2" onSubmit={submitChange}>
                     <div className="col-sm-3">
                         <input type="text" name="judul" className="form-control" placeholder="Judul" onChange={handleJudul} value={inputBook.judul} />
                     </div>
@@ -110,7 +120,7 @@ function ManajemenBuku({ bookList, store }) {
                                 <td className="text-center align-middle">{book.stok}</td>
                                 <td className="text-center align-middle">
                                     <button className="btn btn-warning me-2" onClick={() => showEdit(book)}>Edit</button>
-                                    <button className="btn btn-danger">Hapus</button>
+                                    <button className="btn btn-danger" onClick={() => deleteBook(book)}>Hapus</button>
                                 </td>
                             </tr>
                         ))}
